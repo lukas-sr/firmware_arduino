@@ -10,10 +10,11 @@ void setup(){
 
 void loop() {
 
-  unsigned int c = Serial.parseInt();
   unsigned int tam = sizeof(v01)/sizeof(unsigned char);
-
-  switch (c){
+  unsigned int c = Serial.parseInt();  
+  
+  while (Serial.available() <= 0 ){
+    switch (c){
     case 1:
       print_vect(v01, tam);
       Serial.println("v01");
@@ -73,19 +74,15 @@ void loop() {
       print_vect(v12, tam);
       Serial.println("v12");
       break;
+    }
   }
 }
 
 void print_vect( unsigned char* v, unsigned char tam){
-
-  //PORTD = B00000000;
-  
-  Serial.println(tam);
 
   for ( int i = 0 ; i < tam-1 ; i++){
     PORTD = v[i];
     Serial.println(v[i], HEX);
     delay(16);  
   }
-
 }
